@@ -28,7 +28,7 @@ export const App = () => {
  
   useEffect(() => {
     return () => {
-      console.log('contacts useEffect');
+      console.log(contacts);
       window.localStorage.setItem('contacts', JSON.stringify(contacts));
     }
   }, [contacts]);
@@ -54,28 +54,34 @@ export const App = () => {
   //   }
 
 
-  const addContact = () => {
-      let contact = {};
-    const {id, name, number } = contact;
+  const addContact = ({ name, number }) => {
+    //   let contact = {};
+    // const {id, name, number } = contact;
           
     const ContactItem = {
       id: nanoid(),
       name,
       number,
     };
+    console.log(ContactItem);
+
+    //   addContact = ({ name, number }) => {
+    // const { contacts } = this.state;
+          
+    // const ContactItem = {
+    //   id: nanoid(),
+    //   name,
+    //   number,
+    // };
 
     const normalizedName = name.toLowerCase();
     const nameCheck = contacts.filter(contact => contact.name.toLowerCase() === normalizedName)
     
     if (nameCheck.length >= 1) {
       return alert(`${name} is already in contacts`)
-    }
-    setContacts(prev => ({
-    contacts: [ContactItem, ...prev]
-      }))
-
-
-
+    } else setContacts(prev => prev.push(ContactItem));
+    
+    console.log(contacts);
     // this.setState(prevState => ({
     // contacts: [ContactItem, ...prevState.contacts]
     //   }))  
@@ -94,13 +100,9 @@ export const App = () => {
   };
 
 
-  const getVisibleContacts = () => {
-    // const {contacts, filter} = this.state;
-    // const normalizedFilter = filter.toLowerCase();
-    
-    // setContacts(contacts.filter(contact => contact.name.toLowerCase().includes(normalizedFilter)) );
-    console.log(contacts);
-
+  const getVisibleContacts = (contacts) => {
+    const normalizedFilter = filter.toLowerCase();
+    return contacts.filter(contact => contact.name.toLowerCase().includes(normalizedFilter));
   }
     
   const handleChangeFilter = ({ target: { value } }) => setFilter(value);
@@ -137,7 +139,7 @@ return (
             onChange={handleChangeFilter}
           />
           <Contacts
-            contactsList={contacts}
+            contactsList={getVisibleContacts(contacts)}
             onDeleteContact={deleteContact}
           />
         </div>

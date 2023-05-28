@@ -7,6 +7,10 @@ export const Form = ({onSubmit}) => {
 
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const user = {
+    name: name,
+    number: number,
+  }
 
 
     // state = {
@@ -23,10 +27,8 @@ export const Form = ({onSubmit}) => {
     const handleSubmit = (e) => {
       e.preventDefault();
       // onSubmit(this.state);
-        createUser((user) => {
-        userName: name,
-        userNumber: number,
-    })
+      onSubmit(user);
+      console.log(user);
       reset();
   }
   
