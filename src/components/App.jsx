@@ -87,10 +87,10 @@ export const App = () => {
     //   }))  
     };
     
-  
-
-  const deleteContact = id => {
-    setContacts(prev => {prev.filter(contact => contact.id !== id)
+    const deleteContact = id => {
+      setContacts(prev => {
+        prev.filter(contact => contact.id !== id);
+        return contacts;
     })
 
 
@@ -99,10 +99,9 @@ export const App = () => {
     // }));
   };
 
-
   const getVisibleContacts = (contacts) => {
     const normalizedFilter = filter.toLowerCase();
-    return contacts.filter(contact => contact.name.toLowerCase().includes(normalizedFilter));
+    return contacts.filter(contact => contact.name.toLowerCase().includes(normalizedFilter))
   }
     
   const handleChangeFilter = ({ target: { value } }) => setFilter(value);
