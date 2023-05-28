@@ -3,9 +3,6 @@ import PropTypes from 'prop-types';
 import { FormWrapper, Button, StyledInput } from "components/styled";
 import styled from "styled-components";
 
-
-
-
 export const Form = ({onSubmit}) => {
 
   const [name, setName] = useState('');
@@ -26,6 +23,10 @@ export const Form = ({onSubmit}) => {
     const handleSubmit = (e) => {
       e.preventDefault();
       // onSubmit(this.state);
+        createUser((user) => {
+        userName: name,
+        userNumber: number,
+    })
       reset();
   }
   
