@@ -1,4 +1,4 @@
-import { Component, useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { nanoid } from 'nanoid'
 import { Form } from "./Form/Form";
 import { Title } from './Title/Title';
@@ -16,15 +16,18 @@ const useLocalStorage = (key, defaultValue) => {
   return [state, setState];
 }
 
+const getVisibleContacts = [];
+const initialContacts = [
+  { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+  { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+  { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+  { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+];
+
 export const App = () => {
   const [filter, setFilter] = useState('');
-  const [contacts, setContacts] = useState(
-    [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-    ]);
+  const [contacts, setContacts] = useState(initialContacts);
+  // const [getVisibleContacts, setGetVisibleContacts] = useState(initialContacts);
  
   useEffect(() => {
     return () => {
@@ -55,9 +58,6 @@ export const App = () => {
 
 
   const addContact = ({ name, number }) => {
-    //   let contact = {};
-    // const {id, name, number } = contact;
-          
     const ContactItem = {
       id: nanoid(),
       name,
@@ -65,47 +65,38 @@ export const App = () => {
     };
     console.log(ContactItem);
 
-    //   addContact = ({ name, number }) => {
-    // const { contacts } = this.state;
-          
-    // const ContactItem = {
-    //   id: nanoid(),
-    //   name,
-    //   number,
-    // };
-
     const normalizedName = name.toLowerCase();
+
     const nameCheck = contacts.filter(contact => contact.name.toLowerCase() === normalizedName)
-    
+    console.log(nameCheck);
     if (nameCheck.length >= 1) {
       return alert(`${name} is already in contacts`)
-    } else setContacts(prev => prev.push(ContactItem));
+    } 
+    
+  setContacts(contacts.push(ContactItem));
     
     console.log(contacts);
-    // this.setState(prevState => ({
-    // contacts: [ContactItem, ...prevState.contacts]
-    //   }))  
-    };
-    
-    const deleteContact = id => {
-      setContacts(prev => {
-        prev.filter(contact => contact.id !== id);
-        return contacts;
-    })
-
-
-    // this.setState(prevState => ({
-    //   contacts: prevState.contacts.filter(contact => contact.id !== id),
-    // }));
   };
-
-  const getVisibleContacts = (contacts) => {
-    const normalizedFilter = filter.toLowerCase();
-    return contacts.filter(contact => contact.name.toLowerCase().includes(normalizedFilter))
-  }
     
-  const handleChangeFilter = ({ target: { value } }) => setFilter(value);
+  const deleteContact = id => {
+    setContacts(prev => {
+      prev.filter(contact => contact.id !== id);
+      return contacts;
+    })
+  };
+  const normalizedFilter = filter.toLowerCase();
+
+  // const getVisibleContacts = contacts;
+
   
+  const getVisibleContacts = contacts.filter(contact => contact.name.toLowerCase().includes(normalizedFilter));
+
+  // const handleChangeFilter = ({ target: { value } }) => setFilter(value);
+  const handleChangeFilter = (e) => {
+    setFilter(e.target.value);
+    console.log(filter);
+  }
+
 return (
         <div
           style={{
@@ -138,7 +129,7 @@ return (
             onChange={handleChangeFilter}
           />
           <Contacts
-            contactsList={getVisibleContacts(contacts)}
+            contactsList={getVisibleContacts}
             onDeleteContact={deleteContact}
           />
         </div>

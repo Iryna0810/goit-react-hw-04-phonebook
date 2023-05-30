@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { FormWrapper, Button, StyledInput } from "components/styled";
 import styled from "styled-components";
 
-export const Form = ({onSubmit}) => {
+export const Form = ({onSubmitUser}) => {
 
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+
   const user = {
     name: name,
     number: number,
@@ -26,36 +27,36 @@ export const Form = ({onSubmit}) => {
     
     const handleSubmit = (e) => {
       e.preventDefault();
-      // onSubmit(this.state);
-      onSubmit(user);
+      onSubmitUser(user);
       console.log(user);
       reset();
   }
   
-    const handleInputChange = event => {
-    const { value, name } = event.target;
+  //   const handleInputChange = event => {
+  //   const { value, name } = event.target;
 
-    switch (name) {
-      case 'name':
-        setName(value);
-        break;
+  //   switch (name) {
+  //     case 'name':
+  //       setName(value);
+  //       break;
       
-      case 'number':
-        setNumber(value);
-        break;
+  //     case 'number':
+  //       setNumber(value);
+  //       break;
       
-      default: return;
+  //     default: return;
+  //   }
+  // };
+
+      const handleInputChange = ({ target: { value, name } }) => {
+        if (name === 'name') setName(value)
+        if (name === 'number') setNumber(value)
     }
-  };
 
 
   const reset = () => {
     setName('');
     setNumber('');
-      // this.setState({
-      //   name: '',
-      //   number: '',
-      // })
     }
 
 

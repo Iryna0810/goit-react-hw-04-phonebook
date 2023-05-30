@@ -4,12 +4,11 @@ import { List, Button } from 'components/styled';
 
 export const Contacts = ({ contactsList, onDeleteContact }) => 
 {return <List>
-        {contactsList.map(({id, name, number}) => (<li
-        className=''
-        key={id}>
+    {contactsList.map(({ id, name, number }) => (
+        <li key={id}>
         <p>{name}</p>
-            <p>{number}</p>
-            <Button type="submit" onClick={()=>onDeleteContact(id)}>Delete</Button>
+        <p>{number}</p>
+        <Button type="submit" onClick={()=>onDeleteContact(id)}>Delete</Button>
     </li>))}
     </List>}
 
