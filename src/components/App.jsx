@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useReducer, useState } from "react"
 import { nanoid } from 'nanoid'
 import { Form } from "./Form/Form";
 import { Title } from './Title/Title';
@@ -16,25 +16,38 @@ const useLocalStorage = (key, defaultValue) => {
   return [state, setState];
 }
 
-const getVisibleContacts = [];
+// const getVisibleContacts = [];
 const initialContacts = [
   { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
   { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
   { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
   { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
 ];
+// const reducer = (state, action) => {
+//  const normalizedFilter = filter.toLowerCase();
+//     if (filter) {
+//       return contacts;
+//     } else contacts.filter(contact => contact.name.toLowerCase().includes(normalizedFilter));
+// }
+
+
 
 export const App = () => {
   const [filter, setFilter] = useState('');
   const [contacts, setContacts] = useState(initialContacts);
+    // const [contactsLocalStorage, setcontactsLocalStorage] = useLocalStorage("contactsLocalStorage", []);
+  // const [number, setNumberPassword] = useLocalStorage("number", "");
   // const [getVisibleContacts, setGetVisibleContacts] = useState(initialContacts);
  
-  useEffect(() => {
-    return () => {
-      console.log(contacts);
-      window.localStorage.setItem('contacts', JSON.stringify(contacts));
-    }
-  }, [contacts]);
+  // useEffect(() => {
+  //   return () => {
+  //     console.log(contacts);
+  //     window.localStorage.setItem('contacts', JSON.stringify(contacts));
+  //   }
+  // }, [contacts]);
+
+ 
+
 
   
   // useEffect(()=>{}, [])
@@ -73,7 +86,7 @@ export const App = () => {
       return alert(`${name} is already in contacts`)
     } 
     
-  setContacts(contacts.push(ContactItem));
+  setContacts(prevContacts => prevContacts.push(ContactItem));
     
     console.log(contacts);
   };
@@ -84,12 +97,21 @@ export const App = () => {
       return contacts;
     })
   };
-  const normalizedFilter = filter.toLowerCase();
+
 
   // const getVisibleContacts = contacts;
 
   
-  const getVisibleContacts = contacts.filter(contact => contact.name.toLowerCase().includes(normalizedFilter));
+
+  const getVisibleContacts = () => {
+    if (!filter) {
+      return contacts;
+    }
+    const normalizedFilter = filter.toLowerCase();
+    setContacts(prev => prev.filter(contact => contact.name.toLowerCase().includes(normalizedFilter)));
+    console.log(contacts);
+    return contacts;
+  }
 
   // const handleChangeFilter = ({ target: { value } }) => setFilter(value);
   const handleChangeFilter = (e) => {
@@ -129,7 +151,7 @@ return (
             onChange={handleChangeFilter}
           />
           <Contacts
-            contactsList={getVisibleContacts}
+            contactsList={getVisibleContacts()}
             onDeleteContact={deleteContact}
           />
         </div>

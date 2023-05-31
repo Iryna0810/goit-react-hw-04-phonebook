@@ -12,7 +12,7 @@ export const Filter = ({values, onChange}) =>
 </label>
 )
 
-Filter.propTypes = {
-    values: PropTypes.string,
-    onChange: PropTypes.func,
-}
+// Filter.propTypes = {
+//     values: PropTypes.string,
+//     onChange: PropTypes.func,
+// }

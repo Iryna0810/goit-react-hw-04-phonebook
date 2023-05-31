@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FormWrapper, Button, StyledInput } from "components/styled";
 import styled from "styled-components";
 
-export const Form = ({onSubmitUser}) => {
+export const Form = ({onSubmit}) => {
 
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
@@ -27,7 +27,7 @@ export const Form = ({onSubmitUser}) => {
     
     const handleSubmit = (e) => {
       e.preventDefault();
-      onSubmitUser(user);
+      onSubmit(user);
       console.log(user);
       reset();
   }
@@ -91,4 +91,4 @@ export const Form = ({onSubmitUser}) => {
 
 
 
-Form.propTypes = { onSubmit: PropTypes.func.isRequired};
+// Form.propTypes = { onSubmit: PropTypes.func.isRequired};
