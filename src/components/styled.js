@@ -42,7 +42,7 @@ export const Button = styled.button`
     cursor: pointer;
     text-decoration: none;`;
 
-export const StyledInput = styled.input`
+export const Input = styled.input`
 display: block;
  margin: 0 auto;
   align-items: center;
