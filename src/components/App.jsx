@@ -6,9 +6,8 @@ import { Contacts } from "./Contacts/Contacts";
 import { Filter } from "./Filtter/Filter";
 
 const useLocalStorage = (key, defaultValue) => {
-  const [state, setState] = useState(() => {
-    return JSON.parse(window.localStorage.getItem(key)) ?? defaultValue;
-  });
+  const parseContacts = JSON.parse(window.localStorage.getItem(key));
+  const [state, setState] = useState(() => {return parseContacts.length > 0 ? parseContacts : defaultValue});
 
   useEffect(() => {
     window.localStorage.setItem(key, JSON.stringify(state));
@@ -27,11 +26,12 @@ export const App = () => {
   const [filter, setFilter] = useState('');
   const [contacts, setContacts] = useLocalStorage("contactsLocalStorage", initialContacts);
  
-  useEffect(() => {
-    return () => {
-      window.localStorage.setItem('contactsLocalStorage', JSON.stringify(contacts));
-    }
-  }, [contacts]);
+  // useEffect(() => {
+  //   return () => {
+  //     if (contacts.length >= 1) window.localStorage.setItem('contactsLocalStorage', JSON.stringify(contacts));
+  //     if (contacts.length === 0) window.localStorage.setItem('contactsLocalStorage', JSON.stringify(initialContacts));
+  //   }
+  // }, [contacts]);
 
   const normalizedFilter = filter.toLowerCase();
     
