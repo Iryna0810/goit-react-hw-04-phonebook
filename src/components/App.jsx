@@ -26,12 +26,11 @@ export const App = () => {
   const [filter, setFilter] = useState('');
   const [contacts, setContacts] = useLocalStorage("contactsLocalStorage", initialContacts);
  
-  // useEffect(() => {
-  //   return () => {
-  //     if (contacts.length >= 1) window.localStorage.setItem('contactsLocalStorage', JSON.stringify(contacts));
-  //     if (contacts.length === 0) window.localStorage.setItem('contactsLocalStorage', JSON.stringify(initialContacts));
-  //   }
-  // }, [contacts]);
+  useEffect(() => {
+    return () => {
+     window.localStorage.setItem('contactsLocalStorage', JSON.stringify(contacts));
+    }
+  }, []);
 
   const normalizedFilter = filter.toLowerCase();
     
