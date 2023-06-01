@@ -9,7 +9,6 @@ export const Filter = ({values, onChange}) =>
         onChange={onChange}
         name="filter"
         autoComplete="off">
-
     </Input>
 </label>
 )

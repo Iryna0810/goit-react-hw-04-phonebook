@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import PropTypes from 'prop-types';
 import {FormWrapper, Button, Input} from "components/styled";
-import styled from "styled-components";
+
 
 export const Form = ({ onSubmit }) => {
 
@@ -16,22 +16,6 @@ export const Form = ({ onSubmit }) => {
     });
     reset();
   }
-  
-  //   const handleInputChange = event => {
-  //   const { value, name } = event.target;
-
-  //   switch (name) {
-  //     case 'name':
-  //       setName(value);
-  //       break;
-      
-  //     case 'number':
-  //       setNumber(value);
-  //       break;
-      
-  //     default: return;
-  //   }
-  // };
 
   const handleInputChange = ({ target: { value, name } }) => {
     if (name === 'name') setName(value)
