@@ -12,6 +12,7 @@ const useLocalStorage = (key, defaultValue) => {
     if (parseContacts.length > 0 ) { return parseContacts }
     else return defaultValue;
   });
+  
 
   useEffect(() => {
     window.localStorage.setItem(key, JSON.stringify(state));
