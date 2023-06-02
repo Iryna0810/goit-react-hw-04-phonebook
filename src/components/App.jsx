@@ -13,7 +13,6 @@ const useLocalStorage = (key, defaultValue) => {
     else return defaultValue;
   });
   
-
   useEffect(() => {
     window.localStorage.setItem(key, JSON.stringify(state));
   }, [key, state]);
