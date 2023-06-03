@@ -30,10 +30,6 @@ export const App = () => {
   const [filter, setFilter] = useState('');
   const [contacts, setContacts] = useLocalStorage("contactsLocalStorage", initialContacts);
  
-  useEffect(() => {
-     window.localStorage.setItem('contactsLocalStorage', JSON.stringify(contacts));
-    }, []);
-
   const normalizedFilter = filter.toLowerCase();
     
   const filterContacts = useMemo(() => {
